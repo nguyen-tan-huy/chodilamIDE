@@ -1,0 +1,38 @@
+[package]
+name = "chodilamide-app"
+edition = "2024"
+version.workspace = true
+
+[[bin]]
+name = "chodilamide-ide"
+path = "src/main.rs"
+
+[dependencies]
+gpui = "0.2.2"
+unicode-segmentation = "1"
+project-model = { path = "../project-model" }
+editor-core = { path = "../editor-core" }
+syntax = { path = "../syntax" }
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+ignore = "0.4"
+nucleo-matcher = "0.3"
+lsp-client = { path = "../lsp-client" }
+jsf = { path = "../jsf" }
+spring = { path = "../spring" }
+vcs = { path = "../vcs" }
+db = { path = "../db" }
+scaffold = { path = "../scaffold" }
+toolchain = { path = "../toolchain" }
+futures = "0.3"
+serde_json = "1"
+anyhow = "1"
+runner = { path = "../runner" }
+dap-client = { path = "../dap-client" }
+alacritty_terminal = "0.26"
+
+notify = "8"
+
+[dev-dependencies]
+gpui = { version = "0.2.2", features = ["test-support"] }
+

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=ChoDiLamIDE (Rust)
+Comment=IDE Java/Maven: jdtls, Run/Debug JDI, JUnit, Maven - mỗi project một tab
+Exec=chodilamide-ide %F
+Icon=chodilamide-ide
+Terminal=false
+Categories=Development;IDE;Java;
+StartupWMClass=chodilamide-ide

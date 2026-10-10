@@ -1,0 +1,12 @@
+[package]
+name = "lsp-client"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+futures = "0.3"
+url = "2"
+toolchain = { path = "../toolchain" }

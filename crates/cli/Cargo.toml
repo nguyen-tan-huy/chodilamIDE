@@ -1,0 +1,19 @@
+[package]
+name = "chodilamide"
+edition.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "chodilamide"
+path = "src/main.rs"
+
+[dependencies]
+project-model = { path = "../project-model" }
+serde_json.workspace = true
+anyhow.workspace = true
+lsp-client = { path = "../lsp-client" }
+toolchain = { path = "../toolchain" }
+futures = "0.3"
+runner = { path = "../runner" }
+jsf = { path = "../jsf" }
+spring = { path = "../spring" }

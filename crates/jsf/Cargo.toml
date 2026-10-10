@@ -1,0 +1,11 @@
+[package]
+name = "jsf"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+lsp-client = { path = "../lsp-client" }
+project-model = { path = "../project-model" }
+zip = { version = "4", default-features = false, features = ["deflate"] }

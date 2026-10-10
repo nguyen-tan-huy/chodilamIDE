@@ -1,0 +1,9 @@
+[package]
+name = "editor-core"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+ropey = "1.6"
+unicode-segmentation = "1"
+unicode-width = "0.2"

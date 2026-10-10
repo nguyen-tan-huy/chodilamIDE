@@ -1,0 +1,11 @@
+[package]
+name = "db"
+edition = "2024"
+version.workspace = true
+
+[dependencies]
+mongodb = { version = "3", default-features = false, features = ["sync", "compat-3-0-0", "rustls-tls", "dns-resolver"] }
+bson = "2"
+serde_json = "1"
+regex = "1"
+anyhow = "1"

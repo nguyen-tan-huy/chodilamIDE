@@ -1,0 +1,10 @@
+[package]
+name = "syntax"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+tree-sitter = "0.25"
+tree-sitter-java = "0.23.5"
+tree-sitter-xml = "0.7.0"
+streaming-iterator = "0.1"

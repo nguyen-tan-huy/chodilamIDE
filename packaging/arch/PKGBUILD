@@ -1,0 +1,39 @@
+# Build: cd packaging/arch && makepkg -f   →  sudo pacman -U chodilamide-ide-*.pkg.tar.zst
+# Builds from this working tree (no download). Installs next to the old WezTerm+nvim
+# "chodilamide" package without conflicts.
+pkgname=chodilamide-ide
+pkgver=0.2.0
+pkgrel=44
+pkgdesc="ChoDiLamIDE viết bằng Rust (GPUI): Java/Maven, jdtls, debugger JDI, JUnit, Maven"
+arch=('x86_64')
+license=('custom')
+# JDK 21, Maven, jdtls and lombok are downloaded by the app on first use when missing
+# (~/.local/share/chodilamide/tools) - curl + tar do that
+depends=('curl' 'tar' 'vulkan-icd-loader' 'libxkbcommon' 'wayland' 'fontconfig' 'ttf-jetbrains-mono')
+# needs a Rust toolchain (cargo) in PATH - rustup is fine, so no pacman makedepends
+optdepends=('fcitx5: gõ tiếng Việt (Telex/VNI)'
+            'git: Git (commit, log, gutter)'
+            'jdk21-openjdk: dùng JDK của hệ thống thay vì JDK app tự tải'
+            'maven: dùng Maven của hệ thống thay vì Maven app tự tải')
+options=('!lto' '!debug')
+
+_src() { echo "$startdir/../.."; }
+
+build() {
+  cd "$(_src)"
+  cargo build --release -p chodilamide-app -p chodilamide
+  ./debugger/build.sh
+}
+
+package() {
+  local src
+  src="$(_src)"
+  install -Dm755 "$src/target/release/chodilamide-ide" "$pkgdir/usr/bin/chodilamide-ide"
+  install -Dm755 "$src/target/release/chodilamide" "$pkgdir/usr/bin/chodilamide-ide-cli"
+  install -Dm644 "$src/debugger/build/chodilamide-debugger.jar" "$pkgdir/usr/share/chodilamide/chodilamide-debugger.jar"
+  install -Dm644 "$src/debugger/build/chodilamide-testrunner.jar" "$pkgdir/usr/share/chodilamide/chodilamide-testrunner.jar"
+  # jdtls agent that fixes Maven import of independent modules (from java-debug-model)
+  install -Dm644 "$src/packaging/common/jdtls-maven-importer-patch-agent.jar" "$pkgdir/usr/share/chodilamide/jdtls-maven-importer-patch-agent.jar"
+  install -Dm644 "$startdir/chodilamide-ide.desktop" "$pkgdir/usr/share/applications/chodilamide-ide.desktop"
+  install -Dm644 "$startdir/chodilamide-ide.png" "$pkgdir/usr/share/icons/hicolor/256x256/apps/chodilamide-ide.png"
+}

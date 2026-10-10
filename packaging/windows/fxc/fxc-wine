@@ -1,0 +1,15 @@
+#!/bin/bash
+# fxc.exe (fxc.c + Microsoft d3dcompiler_47.dll) under Wine, for GPUI_FXC_PATH when building
+# the Windows .exe on Linux. Paths of files are turned into Windows paths for Wine.
+DIR=$(dirname "$(readlink -f "$0")")
+args=()
+for a in "$@"; do
+  case "$a" in
+    /T|/E|/Fh|/Vn|/O3) args+=("$a") ;;
+    /*) args+=("$(winepath -w "$a" 2>/dev/null)") ;;
+    *) args+=("$a") ;;
+  esac
+done
+export WINEDEBUG=-all WINEDLLOVERRIDES="d3dcompiler_47=n;mscoree,mshtml="
+export WINEPREFIX=${WINEPREFIX:-$HOME/.cache/chodilamide/wine-fxc}
+exec wine "$DIR/fxc.exe" "${args[@]}"
